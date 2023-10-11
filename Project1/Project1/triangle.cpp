@@ -94,10 +94,26 @@ int main() {
 		" FragColor = vec4(1.0f, 0.5f, 0.2f, 1.0f);\n"
 		"}\0";
 
+	//code is the same as creating the vertex shader except for
+	//  the arg passed to glCreateShader
 	unsigned int fragmentShader;
 	fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
 	glShaderSource(fragmentShader, 1, &fragmentShaderSource, NULL);
 	glCompileShader(fragmentShader);
+
+	//pg. 32-33 - creating a shader program object
+	unsigned int shaderProgram;
+	shaderProgram = glCreateProgram();
+	//attach compiled shaders from above to program object
+	glAttachShader(shaderProgram, vertexShader);
+	glAttachShader(shaderProgram, fragmentShader);
+	// linking the shaders (to the program object)*
+	//   *not fully sure about description above
+	glLinkProgram(shaderProgram);
+
+	//makes every shader and rendering call after this fcn call use
+	//  the shaders in shaderProgram 
+	glUseProgram(shaderProgram);
 
 	//render loop
 	while (!glfwWindowShouldClose(window))
