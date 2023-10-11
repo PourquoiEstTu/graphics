@@ -115,6 +115,10 @@ int main() {
 	//  the shaders in shaderProgram 
 	glUseProgram(shaderProgram);
 
+	//feels similar to deallocating shaders
+	glDeleteShader(vertexShader);
+	glDeleteShader(fragmentShader);
+
 	//render loop
 	while (!glfwWindowShouldClose(window))
 	{
