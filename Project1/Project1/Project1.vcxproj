@@ -160,6 +160,7 @@
     <ClCompile Include="blackscreen.cpp" />
     <ClCompile Include="coloured-screen.cpp" />
     <ClCompile Include="glad.c" />
+    <ClCompile Include="rectangle.cpp" />
     <ClCompile Include="triangle.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
