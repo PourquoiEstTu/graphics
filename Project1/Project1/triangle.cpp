@@ -115,7 +115,7 @@ int main() {
 	//  the shaders in shaderProgram 
 	glUseProgram(shaderProgram);
 
-	//feels similar to deallocating shaders
+	//feels similar to deallocating dynamic mem
 	glDeleteShader(vertexShader);
 	glDeleteShader(fragmentShader);
 
