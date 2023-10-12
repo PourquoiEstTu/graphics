@@ -16,7 +16,7 @@ int main() {
 	//glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 
 	//create window object, pg. 21
-	GLFWwindow* window = glfwCreateWindow(800, 600, "PINK TRIANGLE", NULL, NULL);
+	GLFWwindow* window = glfwCreateWindow(800, 600, "PINK RECTANGLE", NULL, NULL);
 	if (window == NULL)
 	{
 		std::cout << "Failed to create GLFW window" << std::endl;
@@ -40,12 +40,27 @@ int main() {
 	//resizes the viewport everytime the user resizes the window, pg. 22
 	glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
 
+	//pg. 37-38 EBOs
 	//three 3d coords
 	float vertices[] = {
-		-0.5f, -0.5f, 0.0f,
-		0.5f, -0.5f, 0.0f,
-		0.0f, 0.5f, 0.0f
+		0.5f, 0.5f, 0.0f,   //top right
+		0.5f, -0.5f, 0.0f,  //bottom right 
+		-0.5f, -0.5f, 0.0f, //bottom left 
+		-0.5f, 0.5f, 0.0f   //top left
 	};
+	//indices an element buffer object uses to tell 
+	//  opengl which coords to draw from vertices[] 
+	//  in what order
+	unsigned int indices[] = { //we always start from 0
+		0, 1, 3, //first triangle
+		1, 2, 3  //second triangle  
+	};
+	
+	unsigned int EBO;
+	glGenBuffers(1, &EBO);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, 
+					GL_STATIC_DRAW);
 
 	//pg. 30
 	//vertex shader program
@@ -62,9 +77,9 @@ int main() {
 	glGenBuffers(1, &VBO);
 	//binds VBO buffer to buffer object type GL_ARRAY_BUFFER
 	//any buffer calls to this type will now act on VBO
-	glBindBuffer(GL_ARRAY_BUFFER, VBO);
+	//glBindBuffer(GL_ARRAY_BUFFER, VBO);
 	//copies vertex data to buffer 
-	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+	//glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
 
 	//pg. 31
 	unsigned int vertexShader;
@@ -139,8 +154,8 @@ int main() {
 
 		//rendering commands
 		glUseProgram(shaderProgram);
-		glBindVertexArray(VAO);
-		glDrawArrays(GL_TRIANGLES, 0, 3);
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
+		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 
 		//check and call events and swap buffers
 		glfwPollEvents();
