@@ -2,7 +2,7 @@
 #include <GLFW/glfw3.h>
 #include <iostream>
 
-void framebuffer_size_callback(GLFWwindow* window, int width, int height);
+/* void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 void processInput(GLFWwindow* window);
 
 
@@ -15,7 +15,7 @@ int main() {
 	//glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 
 	//create window object, pg. 21
-	GLFWwindow* window = glfwCreateWindow(800, 600, "LearnOpenGL", NULL, NULL);
+	GLFWwindow* window = glfwCreateWindow(800, 600, "PINK TRIANGLE", NULL, NULL);
 	if (window == NULL)
 	{
 		std::cout << "Failed to create GLFW window" << std::endl;
@@ -91,7 +91,7 @@ int main() {
 		"out vec4 FragColor;\n"
 		"void main()\n"
 		"{\n"
-		" FragColor = vec4(1.0f, 0.5f, 0.2f, 1.0f);\n"
+		" FragColor = vec4(1.0f, 0.3f, 0.7f, 1.0f);\n"
 		"}\0";
 
 	//code is the same as creating the vertex shader except for
@@ -119,12 +119,35 @@ int main() {
 	glDeleteShader(vertexShader);
 	glDeleteShader(fragmentShader);
 
+
+	//pg. 35-36 creating vertex array objects (VAO)
+	unsigned int VAO;
+	glGenVertexArrays(1, &VAO);
+	glBindVertexArray(VAO);
+	
+	//copy our vertices array in a buffer for OpenGL to use
+	glBindBuffer(GL_ARRAY_BUFFER, VBO);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+
+	//pg. 34 - specifiying which parts of our input data (the vertices
+	//  array) goes to which vertex attribute in the vertex shader
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float),
+						  (void*)0);
+	//pg. 35
+	//vertex attributes are disabled by default so we have to enable
+	//  them
+	glEnableVertexAttribArray(0);
+
 	//render loop
 	while (!glfwWindowShouldClose(window))
 	{
 		// input
 		processInput(window);
 
+		//rendering commands
+		glUseProgram(shaderProgram);
+		glBindVertexArray(VAO);
+		glDrawArrays(GL_TRIANGLES, 0, 3);
 
 		//check and call events and swap buffers
 		glfwPollEvents();
@@ -150,4 +173,4 @@ void processInput(GLFWwindow* window)
 	//  loop terminate
 	if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
 		glfwSetWindowShouldClose(window, true);
-}
+} */
