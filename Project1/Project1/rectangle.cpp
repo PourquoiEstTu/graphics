@@ -77,9 +77,9 @@ int main() {
 	glGenBuffers(1, &VBO);
 	//binds VBO buffer to buffer object type GL_ARRAY_BUFFER
 	//any buffer calls to this type will now act on VBO
-	//glBindBuffer(GL_ARRAY_BUFFER, VBO);
+	glBindBuffer(GL_ARRAY_BUFFER, VBO);
 	//copies vertex data to buffer 
-	//glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
 
 	//pg. 31
 	unsigned int vertexShader;
@@ -122,10 +122,6 @@ int main() {
 	glAttachShader(shaderProgram, fragmentShader);
 	glLinkProgram(shaderProgram);
 
-	//makes every shader and rendering call after this fcn call use
-	//  the shaders in shaderProgram 
-	glUseProgram(shaderProgram);
-
 	glDeleteShader(vertexShader);
 	glDeleteShader(fragmentShader);
 
@@ -146,6 +142,9 @@ int main() {
 	//pg. 35
 	glEnableVertexAttribArray(0);
 
+	//pg. 40 - works both inside and outside render loop
+	glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+	
 	//render loop
 	while (!glfwWindowShouldClose(window))
 	{
@@ -153,7 +152,10 @@ int main() {
 		processInput(window);
 
 		//rendering commands
+		//makes every shader and rendering call after this fcn call use
+	    //  the shaders in shaderProgram 
 		glUseProgram(shaderProgram);
+
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
 		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 
