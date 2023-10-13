@@ -3,7 +3,7 @@
 
 #include <iostream>
 
-void framebuffer_size_callback(GLFWwindow *window, int width, int height);
+/* void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 void processInput(GLFWwindow *window);
 
 int main() {
@@ -36,7 +36,7 @@ int main() {
 	/*if they're right next to each other, then an 
 	 *  EBO can be used for the one shared vertex
 	 */
-	float vertices[] = {
+	/*float vertices[] = {
 		//first triangle
 		-0.7f, -0.5f, 0.0f, //leftmost point
 		-0.1f, -0.5f, 0.0f,  //point touching other triangle
@@ -48,7 +48,7 @@ int main() {
 		/* //smaller inside triangles just cuz lol
 		-0.35f, -0.25f, 0.0f,
 		-0.2f, -0.25f, 0.0f,
-		-0.2f, -0.4f, 0.0f */
+		-0.2f, -0.4f, 0.0f */ /*
 	};
 
 	//vertex buffer object
@@ -149,4 +149,4 @@ void processInput(GLFWwindow *window)
 {
 	if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
 			glfwSetWindowShouldClose(window, true);
-}
+} */
