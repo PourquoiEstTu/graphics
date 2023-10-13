@@ -2,7 +2,7 @@
 #include <GLFW/glfw3.h>
 #include <iostream>
 
-/* void framebuffer_size_callback(GLFWwindow* window, int width, int height);
+void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 void processInput(GLFWwindow *window);
 
 int main() {
@@ -38,6 +38,10 @@ int main() {
 	//resizes the viewport everytime the user resizes the window, pg. 22
 	glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
 
+	int numAttributes;
+	glGetIntegerv(GL_MAX_VERTEX_ATTRIBS, &numAttributes);
+	std::cout << "Maximum num of vertex attributes supported for use in "
+		"vertex shaders: " << numAttributes << std::endl;
 	//render loop, so window doesnt close immediately
 	//  it keeps running until we tell it to stop
 	//  more detail on functions on pg. 22-23
@@ -79,4 +83,4 @@ void processInput(GLFWwindow *window)
 	//  loop terminate
 	if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
 		glfwSetWindowShouldClose(window, true);
-} */
+} 
